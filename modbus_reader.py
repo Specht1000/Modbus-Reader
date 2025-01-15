@@ -6,13 +6,15 @@ import json
 import os
 
 class ModbusReaderApp(QtWidgets.QMainWindow):
-    CONFIG_FILE = "modbus_config.json"
+    # Base directory to locate files, compatible with PyInstaller
+    BASE_DIR = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    CONFIG_FILE = os.path.join(BASE_DIR, "modbus_config.json")
 
     def __init__(self):
         super(ModbusReaderApp, self).__init__()
         self.init_ui()
 
-        self.client = None
+        self.client = None  # Modbus client instance
         self.load_config()
         self.update_fields()
 
